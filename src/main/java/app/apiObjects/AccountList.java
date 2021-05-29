@@ -10,13 +10,12 @@ public class AccountList {
     String endpoint = "/api/v2/accounts";
 
     public AccountList() throws Exception {
-        this.get();
+        this.build();
     }
 
-    public ArrayList<Account> get() throws Exception {
+    private void build() throws Exception {
         Connector connector = new Connector();
         JSONObject result = connector.SendRequest(endpoint);
-        System.out.println(result);
         JSONArray resultList = result.getJSONArray("accounts");
 
         for (int i = 0; i < resultList.length(); i++) {
@@ -25,8 +24,6 @@ public class AccountList {
                     resultAccount.getString("defaultCategory"));
             accountList.add(account);
         }
-
-        return accountList;
     }
 
     public void print() {
@@ -36,14 +33,11 @@ public class AccountList {
     }
 
     public Account getOne(String accountId) throws Exception {
-
         for (Account account : this.accountList) {
             if (account.accountUid.equals(accountId)) {
                 return account;
             }
         }
-
         throw new InvalidAccountException("Not a valid account");
-
     }
 }

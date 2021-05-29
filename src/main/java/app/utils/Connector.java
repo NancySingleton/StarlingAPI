@@ -1,10 +1,10 @@
 package app.utils;
 
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.net.http.*;
 import org.json.*;
+
+import app.errors.RequestFailedException;
 
 public class Connector {
   String baseUrl = "https://api-sandbox.starlingbank.com";
@@ -22,9 +22,12 @@ public class Connector {
     // use the client to send the request
     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-    JSONObject JSONResponse = new JSONObject(response.body());
-
-    return JSONResponse;
+    if (response.statusCode() == 200) {
+      JSONObject JSONResponse = new JSONObject(response.body());
+      return JSONResponse;
+    } else {
+      throw new RequestFailedException(response.body());
+    }
 
   }
 }

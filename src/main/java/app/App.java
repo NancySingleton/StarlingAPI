@@ -14,7 +14,7 @@ public class App {
     try {
       Account chosenAccount = accountList.getOne(inputAccount);
       TransactionFeed transactionFeed = new TransactionFeed(chosenAccount);
-      System.out.println(transactionFeed);
+      transactionFeed.print();
     } catch (InvalidAccountException e) {
       System.out.println("Not a valid account");
     }
