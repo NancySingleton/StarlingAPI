@@ -7,8 +7,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.json.*;
 
 import app.errors.RequestFailedException;
@@ -36,8 +34,6 @@ public class Token {
         put("grant_type", "refresh_token");
       }
     };
-
-    ObjectMapper objectMapper = new ObjectMapper();
 
     String form = requestBodyValues.keySet().stream()
         .map(key -> key + "=" + URLEncoder.encode(requestBodyValues.get(key), StandardCharsets.UTF_8))
