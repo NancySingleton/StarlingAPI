@@ -6,6 +6,7 @@ import app.utils.*;
 
 public class App {
   public static void main(String[] args) throws Exception {
+
     AccountList accountList = new AccountList();
     accountList.print();
 
